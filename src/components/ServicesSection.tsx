@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import calculatorImg from "@/assets/calculator.webp";
 import redesignImg from "@/assets/redesign.webp";
 import poddrujkaImg from "@/assets/poddrujka.webp";
+import { useEffect } from "react";
 
 const services = [
   {
@@ -13,6 +14,8 @@ const services = [
     tags: ["Готов до 7 дни", "SEO Оптимизация"],
     cta: "Стартирай Сега",
     img: calculatorImg,
+    calNamespace: "30min",
+    calLink: "gweb.bg/30min",
   },
   {
     title: "Редизайн & Одит",
@@ -20,6 +23,8 @@ const services = [
     tags: ["Premium UI", "UX Одит"],
     cta: "Запази Час",
     img: redesignImg,
+    calNamespace: "redesign",
+    calLink: "gweb.bg/redesign",
   },
   {
     title: "Месечна Поддръжка",
@@ -27,10 +32,51 @@ const services = [
     tags: ["Speed Boost", "24/7 Мониторинг"],
     cta: "Свържи се с нас",
     img: poddrujkaImg,
+    calNamespace: "poddrujka",
+    calLink: "gweb.bg/poddrujka",
   },
 ];
 
 const ServicesSection = () => {
+  useEffect(() => {
+    if (document.getElementById("cal-script")) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (function (C: any, A: string, L: string) {
+      const p = (a: any, ar: any) => { a.q.push(ar); };
+      const d = C.document;
+      C.Cal = C.Cal || function (...args: any[]) {
+        const cal = C.Cal;
+        if (!cal.loaded) {
+          cal.ns = {}; cal.q = cal.q || [];
+          const s = d.createElement("script");
+          s.id = "cal-script";
+          s.src = A;
+          d.head.appendChild(s);
+          cal.loaded = true;
+        }
+        if (args[0] === L) {
+          const api: any = function () { p(api, arguments); };
+          const ns = args[1];
+          api.q = api.q || [];
+          if (typeof ns === "string") {
+            cal.ns[ns] = cal.ns[ns] || api;
+            p(cal.ns[ns], args);
+            p(cal, ["initNamespace", ns]);
+          } else p(cal, args);
+          return;
+        }
+        p(cal, args);
+      };
+    })(window, "https://app.cal.eu/embed/embed.js", "init");
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Cal = (window as any).Cal;
+    Cal("init", "30min", { origin: "https://cal.eu" });
+    Cal("init", "redesign", { origin: "https://cal.eu" });
+    Cal("init", "poddrujka", { origin: "https://cal.eu" });
+  }, []);
+
   return (
     <section id="services" className="py-24">
       <div className="container mx-auto px-4">
@@ -70,8 +116,15 @@ const ServicesSection = () => {
                     </span>
                   ))}
                 </div>
-                <Button variant="hero" size="sm" className="w-full" asChild>
-                  <a href="#contact">{s.cta}</a>
+                <Button
+                  variant="hero"
+                  size="sm"
+                  className="w-full"
+                  data-cal-namespace={s.calNamespace}
+                  data-cal-link={s.calLink}
+                  data-cal-config='{"layout":"month_view"}'
+                >
+                  {s.cta}
                 </Button>
               </div>
             </motion.div>

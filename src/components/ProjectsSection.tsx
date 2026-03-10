@@ -1,16 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import shopifyLogo from "@/assets/shopify-logo.png";
-import calculatorImg from "@/assets/calculator.webp";
-import poddrujkaImg from "@/assets/poddrujka.webp";
-import speedImg from "@/assets/speed.webp";
 
 const projects = [
-  { name: "Alpha Supplements", desc: "Онлайн магазин за хранителни добавки с премиум дизайн.", tech: "Shopify", img: shopifyLogo, domain: "alphasupplements.bg" },
-  { name: "Urban Wear", desc: "Модерен магазин за градска мода с фокус върху UX.", tech: "Custom Code", img: calculatorImg, domain: "urbanwear.bg" },
-  { name: "Coffee Shop", desc: "Стилен магазин с кафе аксесоари и артикули.", tech: "Shopify", img: poddrujkaImg, domain: "coffeeshop.bg" },
-  { name: "Fitness Pro", desc: "Магазин за фитнес оборудване и екипировка.", tech: "Shopify", img: speedImg, domain: "fitnesspro.bg" },
+  { name: "The Agency Course", desc: "Платформа за обучение и развитие на дигитални агенции.", tech: "Custom Code", imgSrc: "/imgs/corka.png", domain: "theagencycourse.bg", url: "https://theagencycourse.bg" },
+  { name: "AI Marketing", desc: "Иновативна платформа за маркетинг с изкуствен интелект.", tech: "Custom Code", imgSrc: "/imgs/aimarketing.png", domain: "aimarketing.bg", url: "https://aimarketing.bg" },
+  { name: "ClaimRadar", desc: "Намери непотърсени пари и активи по целия свят.", tech: "Custom Code", imgSrc: "/imgs/claimradar.png", domain: "claimradar.net", url: "https://claimradar.net" },
+  { name: "KR Shoes Store", desc: "Онлайн магазин за обувки с модерен дизайн.", tech: "Custom Code", imgSrc: "/imgs/krshoes.png", domain: "krshoesstore.com", url: "https://krshoesstore.com" },
+  { name: "InPlay Gear", desc: "Иновативен EVA протектор за футболисти.", tech: "Custom Code", imgSrc: "/imgs/inplaygear.png", domain: "inplaygear.com", url: "https://inplaygear.com" },
+  { name: "Готов за час", desc: "Онлайн платформа за бързи услуги.", tech: "Custom Code", imgSrc: "/imgs/gotovzachas.png", domain: "gotovzachas.com", url: "https://gotovzachas.com" },
+  { name: "Editing.bg", desc: "Професионално видео монтиране за завладяващо съдържание.", tech: "Custom Code", imgSrc: "/imgs/editingbg.png", domain: "editing.bg", url: "https://editing.bg" },
 ];
 
 const ProjectsSection = () => {
@@ -29,7 +28,7 @@ const ProjectsSection = () => {
           Виж как трансформираме идеите в печеливши бизнеси.
         </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
             <motion.div
               key={p.name}
@@ -39,17 +38,16 @@ const ProjectsSection = () => {
               transition={{ delay: i * 0.1 }}
               className="glass-card rounded-2xl overflow-hidden group hover:glass-card-elevated transition-all duration-500"
             >
-              <div className="relative h-40 bg-secondary flex items-center justify-center overflow-hidden">
-                <img src={p.img.src} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <span className="absolute top-3 left-3 text-xs font-medium px-2 py-1 rounded-md bg-card/80 backdrop-blur text-foreground">
-                  {p.domain}
-                </span>
-              </div>
-              <div className="p-5">
-                <h3 className="font-display font-bold text-foreground mb-1">{p.name}</h3>
-                <p className="text-xs text-muted-foreground mb-3">{p.desc}</p>
-                <span className="text-xs font-medium text-primary">Изграден с: {p.tech}</span>
-              </div>
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="block">
+                <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                  <img src={p.imgSrc} alt={p.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-display font-bold text-foreground mb-1">{p.name}</h3>
+                  <p className="text-xs text-muted-foreground mb-3">{p.desc}</p>
+                  <span className="text-xs font-medium text-primary">Изграден с: {p.tech}</span>
+                </div>
+              </a>
             </motion.div>
           ))}
         </div>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { useEffect } from "react";
 
 const plans = [
   {
@@ -35,6 +36,45 @@ const plans = [
 ];
 
 const PricingSection = () => {
+  useEffect(() => {
+    if (document.getElementById("cal-script")) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (function (C: any, A: string, L: string) {
+      const p = (a: any, ar: any) => { a.q.push(ar); };
+      const d = C.document;
+      C.Cal = C.Cal || function (...args: any[]) {
+        const cal = C.Cal;
+        if (!cal.loaded) {
+          cal.ns = {}; cal.q = cal.q || [];
+          const s = d.createElement("script");
+          s.id = "cal-script";
+          s.src = A;
+          d.head.appendChild(s);
+          cal.loaded = true;
+        }
+        if (args[0] === L) {
+          const api: any = function () { p(api, arguments); };
+          const ns = args[1];
+          api.q = api.q || [];
+          if (typeof ns === "string") {
+            cal.ns[ns] = cal.ns[ns] || api;
+            p(cal.ns[ns], args);
+            p(cal, ["initNamespace", ns]);
+          } else p(cal, args);
+          return;
+        }
+        p(cal, args);
+      };
+    })(window, "https://app.cal.eu/embed/embed.js", "init");
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Cal = (window as any).Cal;
+    Cal("init", "30min", { origin: "https://cal.eu" });
+    Cal("init", "redesign", { origin: "https://cal.eu" });
+    Cal("init", "poddrujka", { origin: "https://cal.eu" });
+  }, []);
+
   return (
     <section id="plan" className="py-24 bg-secondary/50">
       <div className="container mx-auto px-4">
@@ -95,13 +135,16 @@ const PricingSection = () => {
               <Button
                 variant={plan.popular ? "heroOutline" : "hero"}
                 className={`w-full ${plan.popular ? "bg-card/90 text-foreground hover:bg-card" : ""}`}
-                asChild
+                data-cal-namespace="30min"
+                data-cal-link="gweb.bg/30min"
+                data-cal-config='{"layout":"month_view"}'
               >
-                <a href="#contact">Избери план</a>
+                Избери план
               </Button>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

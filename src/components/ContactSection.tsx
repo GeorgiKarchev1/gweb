@@ -33,7 +33,7 @@ const ContactSection = () => {
           {/* Info */}
           <div className="space-y-6">
             {[
-              { icon: Mail, label: "Имейл", value: "contact@gweb.bg" },
+              { icon: Mail, label: "Имейл", value: "help@gweb.bg" },
               { icon: Phone, label: "Телефон", value: "0895739335" },
               { icon: Clock, label: "Работно време", value: "Пон - Пет, 9:00 - 18:00" },
             ].map((item) => (
