@@ -1,0 +1,244 @@
+.section {
+    background: #f3f4f6;
+    padding: 100px 20px;
+    font-family: var(--font-primary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.header h2 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #111827;
+}
+
+.header p {
+    font-size: 18px;
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #111827;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 40px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.visual {
+    padding: 20px 20px 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.03), transparent);
+}
+
+.browser {
+    background: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.browserBar {
+    background: #e5e7eb;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.red {
+    background: #FF5F57;
+    border: 1px solid #E0443E;
+}
+
+.yellow {
+    background: #FEBC2E;
+    border: 1px solid #D89E24;
+}
+
+.green {
+    background: #28C840;
+    border: 1px solid #1AAB29;
+}
+
+.address {
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    color: #666;
+    width: 60%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.browserContent {
+    position: relative;
+    background: #f0f0f0;
+    overflow: hidden;
+}
+
+.screenshot {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+    object-fit: cover;
+}
+
+.card:hover .screenshot {
+    transform: scale(1.03);
+}
+
+.viewOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+}
+
+.card:hover .viewOverlay {
+    opacity: 1;
+}
+
+.viewBtn {
+    background: #2563eb;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.info h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #111827;
+}
+
+.desc {
+    font-size: 14px;
+    color: #111827;
+    opacity: 0.7;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.techRow {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.techLabel {
+    font-size: 13px;
+    color: #111827;
+    opacity: 0.5;
+}
+
+.techBadge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.shopify {
+    color: #5E8E3E;
+    background: rgba(149, 191, 71, 0.15);
+}
+
+.custom {
+    color: #007DA5;
+    background: rgba(97, 218, 251, 0.15);
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.showMore {
+    background: #2563eb;
+    color: #fff;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.showMore:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header h2 {
+        font-size: 32px;
+    }
+}
