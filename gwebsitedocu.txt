@@ -10699,7 +10699,7 @@ Ugc
           "type": "text",
           "id": "title",
           "label": "Heading",
-          "default": "Избрани проекти"
+          "default": "Нашите проекти"
         },
         {
           "type": "text",

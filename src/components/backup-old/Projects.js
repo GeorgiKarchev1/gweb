@@ -18,7 +18,7 @@ export default function Projects() {
         <section className={styles.section}>
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h2>Избрани проекти</h2>
+                    <h2>Нашите проекти</h2>
                     <p>Виж как трансформираме идеите в печеливши бизнеси.</p>
                 </div>
 

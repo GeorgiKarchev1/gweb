@@ -2,14 +2,17 @@
 
 import { motion } from "framer-motion";
 
+import pawfectImg from "@/assets/pawnfect.png";
+
 const projects = [
-  { name: "The Agency Course", desc: "Платформа за обучение и развитие на дигитални агенции.", tech: "Custom Code", imgSrc: "/imgs/corka.png", domain: "theagencycourse.bg", url: "https://theagencycourse.bg" },
-  { name: "AI Marketing", desc: "Иновативна платформа за маркетинг с изкуствен интелект.", tech: "Custom Code", imgSrc: "/imgs/aimarketing.png", domain: "aimarketing.bg", url: "https://aimarketing.bg" },
-  { name: "ClaimRadar", desc: "Намери непотърсени пари и активи по целия свят.", tech: "Custom Code", imgSrc: "/imgs/claimradar.png", domain: "claimradar.net", url: "https://claimradar.net" },
-  { name: "KR Shoes Store", desc: "Онлайн магазин за обувки с модерен дизайн.", tech: "Custom Code", imgSrc: "/imgs/krshoes.png", domain: "krshoesstore.com", url: "https://krshoesstore.com" },
-  { name: "InPlay Gear", desc: "Иновативен EVA протектор за футболисти.", tech: "Custom Code", imgSrc: "/imgs/inplaygear.png", domain: "inplaygear.com", url: "https://inplaygear.com" },
-  { name: "Готов за час", desc: "Онлайн платформа за бързи услуги.", tech: "Custom Code", imgSrc: "/imgs/gotovzachas.png", domain: "gotovzachas.com", url: "https://gotovzachas.com" },
-  { name: "Editing.bg", desc: "Професионално видео монтиране за завладяващо съдържание.", tech: "Custom Code", imgSrc: "/imgs/editingbg.png", domain: "editing.bg", url: "https://editing.bg" },
+  { name: "The Agency Course", desc: "Платформа за обучение и развитие на дигитални агенции.", tech: "Custom Code", imgSrc: "/imgs/corka.png", url: "https://theagencycourse.bg" },
+  { name: "AI Marketing", desc: "Иновативна платформа за маркетинг с изкуствен интелект.", tech: "Custom Code", imgSrc: "/imgs/aimarketing.png", url: "https://aimarketing.bg" },
+  { name: "ClaimRadar", desc: "Намери непотърсени пари и активи по целия свят.", tech: "Custom Code", imgSrc: "/imgs/claimradar.png", url: "https://claimradar.net" },
+  { name: "KR Shoes Store", desc: "Онлайн магазин за обувки с модерен дизайн.", tech: "Custom Code", imgSrc: "/imgs/krshoes.png", url: "https://krshoesstore.com" },
+  { name: "InPlay Gear", desc: "Иновативен EVA протектор за футболисти.", tech: "Custom Code", imgSrc: "/imgs/inplaygear.png", url: "https://inplaygear.com" },
+  { name: "Готов за час", desc: "Онлайн платформа за бързи услуги.", tech: "Custom Code", imgSrc: "/imgs/gotovzachas.png", url: "https://gotovzachas.com" },
+  { name: "Editing.bg", desc: "Професионално видео монтиране за завладяващо съдържание.", tech: "Custom Code", imgSrc: "/imgs/editingbg.png", url: "https://editing.bg" },
+  { name: "Pawfect", desc: "Онлайн магазин за домашни любимци с грижа за всяка лапичка.", tech: "Shopify", imgSrc: pawfectImg.src, url: "https://pawfect.bg" },
 ];
 
 const ProjectsSection = () => {
@@ -22,7 +25,7 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
           className="text-3xl lg:text-5xl font-display font-bold text-foreground text-center mb-4"
         >
-          Избрани <span className="text-gradient">проекти</span>
+          Нашите <span className="text-gradient">проекти</span>
         </motion.h2>
         <p className="text-muted-foreground text-center text-lg mb-16">
           Виж как трансформираме идеите в печеливши бизнеси.

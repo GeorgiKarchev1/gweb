@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import gwebLogo from "@/assets/gweblogo.png";
 
 const navLinks = [
   { label: "Начало", href: "#hero" },
@@ -19,8 +20,8 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border/50">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <a href="#hero" className="font-display text-2xl font-bold text-foreground tracking-tight">
-          Gweb
+        <a href="#hero">
+          <img src={gwebLogo.src} alt="Gweb" className="h-11 w-11 object-contain" />
         </a>
 
         {/* Desktop */}
