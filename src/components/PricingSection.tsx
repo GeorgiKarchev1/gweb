@@ -3,33 +3,33 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, X, ChevronDown, BarChart2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 
 const plans = [
   {
     name: "Старт",
     desc: "Перфектен за стартиращи бизнеси.",
-    price: "500 лв.",
     priceEur: "256 €",
-    deposit: "100 лв. / 51 €",
+    priceBgn: "500 лв.",
+    deposit: "51 € / 100 лв.",
     features: ["до 10 продукта", "Mobile first", "Базово SEO", "Оптимизация на скоростта", "Генериране на политики", "Проследяване на поръчка"],
     popular: false,
   },
   {
     name: "Бизнес",
     desc: "Всичко необходимо за растящ бизнес.",
-    price: "1200 лв.",
     priceEur: "614 €",
-    deposit: "240 лв. / 123 €",
+    priceBgn: "1200 лв.",
+    deposit: "123 € / 240 лв.",
     features: ["всичко от Старт", "до 50 продукта", "Персонализиран дизайн", "Експертно SEO", "Upsell, Crossell", "Facebook pixel", "Добавяне на ревюта", "Имейл маркетинг"],
     popular: true,
   },
   {
     name: "Компания",
     desc: "Пълноценно решение за бизнеса.",
-    price: "2000 лв.",
     priceEur: "1023 €",
-    deposit: "400 лв. / 205 €",
+    priceBgn: "2000 лв.",
+    deposit: "205 € / 400 лв.",
     features: ["всичко от Бизнес", "Custom branding", "Неограничени продукти", "Мултивалута", "Custom chat bot", "30 дни безплатна поддръжка", "Седмични отчети"],
     popular: false,
   },
@@ -95,11 +95,11 @@ const Cell = ({ value, isPopular }: { value: CellValue; isPopular: boolean }) =>
   );
 };
 
-const PlanCard = ({ plan, mobile }: { plan: typeof plans[0]; mobile?: boolean }) => (
+const PlanCard = ({ plan }: { plan: typeof plans[0] }) => (
   <div
     className={`rounded-2xl p-7 relative flex flex-col ${
-      mobile ? "snap-center shrink-0 w-[82vw]" : ""
-    } ${plan.popular ? "bg-primary text-primary-foreground shadow-xl" : "glass-card"}`}
+      plan.popular ? "bg-primary text-primary-foreground shadow-xl" : "glass-card"
+    }`}
   >
     {plan.popular && (
       <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-accent-foreground text-xs font-bold rounded-full whitespace-nowrap">
@@ -110,12 +110,10 @@ const PlanCard = ({ plan, mobile }: { plan: typeof plans[0]; mobile?: boolean })
     <p className={`text-sm mb-5 ${plan.popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
       {plan.desc}
     </p>
-    <div className="mb-1">
-      <span className="text-3xl font-display font-bold">{plan.price}</span>
+    <div className="mb-1 flex items-baseline gap-3">
+      <span className="text-3xl font-display font-bold">{plan.priceEur}</span>
+      <span className="text-3xl font-display font-bold opacity-60">{plan.priceBgn}</span>
     </div>
-    <p className={`text-sm mb-1 ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-      {plan.priceEur}
-    </p>
     <p className={`text-xs mb-5 ${plan.popular ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
       Капаро от: <strong>{plan.deposit}</strong>
     </p>
@@ -141,6 +139,17 @@ const PlanCard = ({ plan, mobile }: { plan: typeof plans[0]; mobile?: boolean })
 
 const PricingSection = () => {
   const [showComparison, setShowComparison] = useState(false);
+  const [selectedPlans, setSelectedPlans] = useState<boolean[]>([true, true, true]);
+
+  const togglePlan = (idx: number) => {
+    const next = [...selectedPlans];
+    const activeCount = next.filter(Boolean).length;
+    if (next[idx] && activeCount <= 2) return; // минимум 2 избрани
+    next[idx] = !next[idx];
+    setSelectedPlans(next);
+  };
+
+  const activePlanIndices = plans.map((_, i) => i).filter((i) => selectedPlans[i]);
 
   useEffect(() => {
     if (document.getElementById("cal-script")) return;
@@ -198,35 +207,19 @@ const PricingSection = () => {
           <p className="text-muted-foreground text-lg">Прозрачни цени без скрити такси.</p>
         </motion.div>
 
-        {/* ── MOBILE: horizontal snap-scroll ── */}
-        <div
-          className="flex md:hidden gap-4 overflow-x-auto snap-x snap-mandatory pb-4"
-          style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
-        >
-          {/* leading spacer so first card sits centred */}
-          <div className="shrink-0 w-[9vw]" />
-          {plans.map((plan) => (
+        {/* ── MOBILE: vertical stack ── */}
+        <div className="flex flex-col md:hidden gap-6">
+          {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="snap-center shrink-0 w-[82vw]"
+              transition={{ delay: i * 0.1 }}
+              className={plan.popular ? "-mt-0" : ""}
             >
-              <PlanCard plan={plan} mobile />
+              <PlanCard plan={plan} />
             </motion.div>
-          ))}
-          {/* trailing spacer */}
-          <div className="shrink-0 w-[9vw]" />
-        </div>
-
-        {/* Scroll hint dots — mobile only */}
-        <div className="flex justify-center gap-2 mt-3 md:hidden">
-          {plans.map((p) => (
-            <div
-              key={p.name}
-              className={`h-1.5 rounded-full ${p.popular ? "w-5 bg-primary" : "w-1.5 bg-border"}`}
-            />
           ))}
         </div>
 
@@ -259,7 +252,7 @@ const PricingSection = () => {
             className="flex items-center gap-2.5 px-6 py-3 rounded-full glass-card hover:glass-card-elevated transition-all duration-300 text-sm font-semibold text-foreground"
           >
             <BarChart2 className="w-4 h-4 text-primary" />
-            {showComparison ? "Скрий сравнението" : "Сравни всички планове"}
+            {showComparison ? "Скрий сравнението" : "Сравни планове"}
             <ChevronDown
               className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${showComparison ? "rotate-180" : ""}`}
             />
@@ -278,39 +271,63 @@ const PricingSection = () => {
               style={{ overflow: "hidden" }}
             >
               <div className="mt-8 max-w-5xl mx-auto">
-                <div className="overflow-x-auto rounded-2xl glass-card">
-                  <table className="w-full min-w-[520px] border-collapse">
+
+                {/* Plan selector */}
+                <div className="flex flex-wrap justify-center gap-3 mb-6">
+                  <span className="text-sm text-muted-foreground self-center mr-1">Избери планове:</span>
+                  {plans.map((p, i) => (
+                    <button
+                      key={p.name}
+                      onClick={() => togglePlan(i)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                        selectedPlans[i]
+                          ? p.popular
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-foreground text-background border-foreground"
+                          : "bg-transparent text-muted-foreground border-border hover:border-foreground/40"
+                      }`}
+                    >
+                      {p.name}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="rounded-2xl glass-card">
+                  <table className="w-full border-collapse">
 
                     {/* Header */}
                     <thead>
                       <tr className="border-b border-border/60">
-                        <th className="px-6 py-5 text-left w-[40%]">
+                        <th className="px-6 py-5 text-left">
                           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Функция</span>
                         </th>
-                        {plans.map((p) => (
-                          <th key={p.name} className="px-4 py-5 text-center w-[20%] relative">
-                            {p.popular && (
-                              <span className="absolute top-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-accent text-accent-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
-                                Най-избиран
-                              </span>
-                            )}
-                            <div className={`font-display font-bold text-base mt-4 ${p.popular ? "text-primary" : "text-foreground"}`}>
-                              {p.name}
-                            </div>
-                            <div className={`text-xs mt-0.5 ${p.popular ? "text-primary/70" : "text-muted-foreground"}`}>
-                              {p.price}
-                            </div>
-                          </th>
-                        ))}
+                        {activePlanIndices.map((pi) => {
+                          const p = plans[pi];
+                          return (
+                            <th key={p.name} className="px-4 py-5 text-center relative">
+                              {p.popular && (
+                                <span className="absolute top-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-accent text-accent-foreground text-[10px] font-bold rounded-full whitespace-nowrap">
+                                  Най-избиран
+                                </span>
+                              )}
+                              <div className={`font-display font-bold text-base mt-4 ${p.popular ? "text-primary" : "text-foreground"}`}>
+                                {p.name}
+                              </div>
+                              <div className={`text-xs mt-0.5 ${p.popular ? "text-primary/70" : "text-muted-foreground"}`}>
+                                {p.priceEur} / {p.priceBgn}
+                              </div>
+                            </th>
+                          );
+                        })}
                       </tr>
                     </thead>
 
                     {/* Body */}
                     <tbody>
                       {comparisonCategories.map((cat, catIdx) => (
-                        <>
-                          <tr key={`cat-${catIdx}`} className="bg-secondary/50">
-                            <td colSpan={4} className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                        <Fragment key={catIdx}>
+                          <tr className="bg-secondary/50">
+                            <td colSpan={activePlanIndices.length + 1} className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground">
                               {cat.name}
                             </td>
                           </tr>
@@ -319,13 +336,13 @@ const PricingSection = () => {
                               key={row.label}
                               className="border-t border-border/40 hover:bg-secondary/30 transition-colors"
                             >
-                              <td className="px-6 py-3.5 text-sm text-foreground font-medium">{row.label}</td>
-                              {row.values.map((val, planIdx) => (
-                                <Cell key={planIdx} value={val} isPopular={plans[planIdx].popular} />
+                              <td className="px-4 py-3 text-sm text-foreground font-medium">{row.label}</td>
+                              {activePlanIndices.map((pi) => (
+                                <Cell key={pi} value={row.values[pi]} isPopular={plans[pi].popular} />
                               ))}
                             </tr>
                           ))}
-                        </>
+                        </Fragment>
                       ))}
                     </tbody>
 
@@ -333,29 +350,27 @@ const PricingSection = () => {
                     <tfoot>
                       <tr className="border-t border-border/60">
                         <td className="px-6 py-5" />
-                        {plans.map((p) => (
-                          <td key={p.name} className="px-4 py-5 text-center">
-                            <Button
-                              variant={p.popular ? "hero" : "heroOutline"}
-                              size="sm"
-                              className="w-full text-xs"
-                              data-cal-namespace="30min"
-                              data-cal-link="gweb.bg/30min"
-                              data-cal-config='{"layout":"month_view"}'
-                            >
-                              Избери
-                            </Button>
-                          </td>
-                        ))}
+                        {activePlanIndices.map((pi) => {
+                          const p = plans[pi];
+                          return (
+                            <td key={p.name} className="px-4 py-5 text-center">
+                              <Button
+                                variant={p.popular ? "hero" : "heroOutline"}
+                                size="sm"
+                                className="w-full text-xs"
+                                data-cal-namespace="30min"
+                                data-cal-link="gweb.bg/30min"
+                                data-cal-config='{"layout":"month_view"}'
+                              >
+                                Избери
+                              </Button>
+                            </td>
+                          );
+                        })}
                       </tr>
                     </tfoot>
                   </table>
                 </div>
-
-                {/* Mobile scroll hint */}
-                <p className="text-center text-xs text-muted-foreground mt-3 md:hidden">
-                  ← Скролирай за да видиш всички планове →
-                </p>
               </div>
             </motion.div>
           )}
