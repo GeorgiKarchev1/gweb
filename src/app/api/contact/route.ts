@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     },
   });
 
+  try {
   await transporter.sendMail({
     from: `"Gweb Website" <${process.env.SMTP_USER}>`,
     to: "help@gweb.bg",
@@ -51,4 +52,9 @@ export async function POST(req: Request) {
   });
 
   return NextResponse.json({ success: true });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("SMTP error:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
