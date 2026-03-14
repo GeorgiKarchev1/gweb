@@ -30,7 +30,7 @@ const plans = [
     priceEur: "1023 €",
     priceBgn: "2000 лв.",
     deposit: "205 € / 400 лв.",
-    features: ["всичко от Бизнес", "Custom branding", "Неограничени продукти", "Мултивалута", "Custom chat bot", "30 дни безплатна поддръжка", "Седмични отчети"],
+    features: ["всичко от Бизнес", "Custom branding", "Неограничени продукти", "Мултивалута", "Custom chat bot", "14 дни безплатна поддръжка", "Седмични отчети"],
     popular: false,
   },
 ];
@@ -39,33 +39,33 @@ const comparisonCategories = [
   {
     name: "Основни функции",
     rows: [
-      { label: "Брой продукти",             values: ["до 10",  "до 50",  "Неограничени"] },
-      { label: "Mobile First",               values: [true,     true,     true] },
-      { label: "Базово SEO",                 values: [true,     true,     true] },
-      { label: "Оптимизация на скоростта",   values: [true,     true,     true] },
-      { label: "Проследяване на поръчка",    values: [true,     true,     true] },
-      { label: "Генериране на политики",     values: [true,     true,     true] },
+      { label: "Брой продукти", values: ["до 10", "до 50", "Неограничени"] },
+      { label: "Mobile First", values: [true, true, true] },
+      { label: "Базово SEO", values: [true, true, true] },
+      { label: "Оптимизация на скоростта", values: [true, true, true] },
+      { label: "Проследяване на поръчка", values: [true, true, true] },
+      { label: "Генериране на политики", values: [true, true, true] },
     ],
   },
   {
     name: "Маркетинг",
     rows: [
-      { label: "Персонализиран дизайн",      values: [false,    true,     true] },
-      { label: "Експертно SEO",              values: [false,    true,     true] },
-      { label: "Upsell & Crossell",          values: [false,    true,     true] },
-      { label: "Facebook Pixel",             values: [false,    true,     true] },
-      { label: "Добавяне на ревюта",         values: [false,    true,     true] },
-      { label: "Имейл маркетинг",            values: [false,    true,     true] },
+      { label: "Персонализиран дизайн", values: [false, true, true] },
+      { label: "Експертно SEO", values: [false, true, true] },
+      { label: "Upsell & Crossell", values: [false, true, true] },
+      { label: "Facebook Pixel", values: [false, true, true] },
+      { label: "Добавяне на ревюта", values: [false, true, true] },
+      { label: "Имейл маркетинг", values: [false, true, true] },
     ],
   },
   {
     name: "Корпоративни",
     rows: [
-      { label: "Custom branding",            values: [false,    false,    true] },
-      { label: "Мултивалута",                values: [false,    false,    true] },
-      { label: "Custom chat bot",            values: [false,    false,    true] },
-      { label: "30 дни безплатна поддръжка", values: [false,    false,    true] },
-      { label: "Седмични отчети",            values: [false,    false,    true] },
+      { label: "Custom branding", values: [false, false, true] },
+      { label: "Мултивалута", values: [false, false, true] },
+      { label: "Custom chat bot", values: [false, false, true] },
+      { label: "14 дни безплатна поддръжка", values: [false, false, true] },
+      { label: "Седмични отчети", values: [false, false, true] },
     ],
   },
 ];
@@ -97,9 +97,8 @@ const Cell = ({ value, isPopular }: { value: CellValue; isPopular: boolean }) =>
 
 const PlanCard = ({ plan }: { plan: typeof plans[0] }) => (
   <div
-    className={`rounded-2xl p-7 relative flex flex-col ${
-      plan.popular ? "bg-primary text-primary-foreground shadow-xl" : "glass-card"
-    }`}
+    className={`rounded-2xl p-7 relative flex flex-col ${plan.popular ? "bg-primary text-primary-foreground shadow-xl" : "glass-card"
+      }`}
   >
     {plan.popular && (
       <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-accent-foreground text-xs font-bold rounded-full whitespace-nowrap">
@@ -279,13 +278,12 @@ const PricingSection = () => {
                     <button
                       key={p.name}
                       onClick={() => togglePlan(i)}
-                      className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-200 ${
-                        selectedPlans[i]
+                      className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-200 ${selectedPlans[i]
                           ? p.popular
                             ? "bg-primary text-primary-foreground border-primary"
                             : "bg-foreground text-background border-foreground"
                           : "bg-transparent text-muted-foreground border-border hover:border-foreground/40"
-                      }`}
+                        }`}
                     >
                       {p.name}
                     </button>

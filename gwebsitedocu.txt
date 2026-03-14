@@ -9842,7 +9842,7 @@ ${selectedFeatures || 'Няма избрани модули'}
       { label: 'Custom branding', type: 'check', minIndex: 2 },
       { label: 'Мултивалута', type: 'check', minIndex: 2 },
       { label: 'Чат бот', type: 'check', minIndex: 2 },
-      { label: '30 дни безплатна поддръжка', type: 'check', minIndex: 2 },
+      { label: '14 дни безплатна поддръжка', type: 'check', minIndex: 2 },
       { label: 'Изпращане на отчети всяка седмица', type: 'check', minIndex: 2 }
     ];
 
